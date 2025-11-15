@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Волгоградский строительный техникум - Главная</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1a365d;
+            --secondary-blue: #2d5b8a;
+            --accent-gold: #d4af37;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .top-bar {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-menu {
+            display: flex;
+            gap: 24px;
+        }
+
+        .service-menu a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .service-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .header-main {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .logo-section {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .logo img {
+            width: 80%;
+            height: auto;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .header-text .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .header-text .motto {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 20px 24px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.current {
+            background: var(--light-bg);
+            border-bottom-color: var(--accent-gold);
+            color: var(--primary-blue);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 280px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 14px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .dropdown-link:hover {
+            background: var(--light-bg);
+            border-left-color: var(--accent-gold);
+            color: var(--primary-blue);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        .content-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--white);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .news-card {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 20px;
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: var(--radius-md);
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .news-card:hover {
+            border-left-color: var(--accent-gold);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .news-image {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .news-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .news-title a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .news-title a:hover {
+            color: var(--primary-blue);
+        }
+
+        .news-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .widget {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .widget-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .widget-title i {
+            color: var(--accent-gold);
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-link {
+            margin-bottom: 12px;
+        }
+
+        .quick-link a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .quick-link a:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-left-color: var(--accent-gold);
+            transform: translateX(5px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--light-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .contact-value {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            color: var(--white);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 70%;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-gold);
+            color: var(--primary-blue);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: #e6c34d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Achievement Section */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .achievement-card {
+            background: var(--light-bg);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--border-light);
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-gold);
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .achievement-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+
+        .achievement-text {
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .logo-section {
+                grid-template-columns: 80px 1fr;
+            }
+            
+            .header-text h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .news-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-main {
+                padding: 25px 0;
+            }
+            
+            .logo-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .logo {
+                margin: 0 auto;
+            }
+            
+            .service-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="service-menu">
+                <a href="/">на главную</a>
+                <a href="/search/">поиск по сайту</a>
+                <a href="/map/">карта сайта</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header-main">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%231a365d'>ВСТ</text></svg>" alt="Волгоградский строительный техникум">
+                </div>
+                <div class="header-text">
+                    <h1>Волгоградский строительный техникум</h1>
+                    <div class="subtitle">Государственное бюджетное профессиональное образовательное учреждение</div>
+                    <div class="motto">МЫ ДЕЛАЕМ ТВОЕ БУДУЩЕЕ РЕАЛЬНЫМ</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/main/" class="nav-link current">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/about/" class="nav-link">О техникуме</a>
+                    <div class="dropdown-menu">
+                        <a href="/about/profsoyuz/" class="dropdown-link">Первичная профсоюзная организация</a>
+                        <a href="/about/nokod/" class="dropdown-link">Независимая оценка качества</a>
+                        <a href="/about/ohrana_truda/" class="dropdown-link">Охрана труда</a>
+                        <a href="/about/anticorr/" class="dropdown-link">Антикоррупционная деятельность</a>
+                        <a href="/about/news/" class="dropdown-link">Новости</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="/uch_deyat/" class="nav-link">Учебная деятельность</a>
+                    <div class="dropdown-menu">
+                        <a href="/uch_deyat/schedule/" class="dropdown-link">Расписание занятий</a>
+                        <a href="/uch_deyat/distant/" class="dropdown-link">Дистанционное обучение</a>
+                        <a href="/uch_deyat/vkr/" class="dropdown-link">Выпускная квалификационная работа</a>
+                        <a href="/uch_deyat/5236/" class="dropdown-link">Мастерские</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="/studentu/" class="nav-link">Студенту</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/abiturientam/" class="nav-link">Абитуриенту</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/bezop/" class="nav-link">Безопасность</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/5238/" class="nav-link">Методическая работа</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact/" class="nav-link">Контакты</a>
+                </li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="content-column">
+                <!-- Hero Banner -->
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h2 class="hero-title">2025 год - Год защитника Отечества</h2>
+                        <p class="hero-text">Президент Российской Федерации Владимир Путин объявил 2025 год Годом защитника Отечества. Это решение имеет особую значимость в преддверии празднования 80-летия победы в Великой Отечественной войне.</p>
+                        <a href="/about/news/49759.html" class="hero-btn">Подробнее</a>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2 class="section-title">Лучшие техникумы РФ 2024</h2>
+                    </div>
+                    <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                        ГБПОУ "Волгоградский строительный техникум" включен в число лауреатов Национального конкурса "Лучшие техникумы РФ - 2024"
+                    </p>
+                    <div class="achievement-grid">
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <h3 class="achievement-title">Диплом лауреата</h3>
+                            <p class="achievement-text">Национальный конкурс "Лучшие техникумы РФ"</p>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <h3 class="achievement-title">Сертификат качества</h3>
+                            <p class="achievement-text">Подтверждение высокого уровня образования</p>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="achievement-title">Признание</h3>
+                            <p class="achievement-text">Вклад в развитие профессионального образования</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Section -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h2 class="section-title">Новости</h2>
+                    </div>
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <img src="https://r1.nubex.ru/s138456-053/32041ef1ff_160x160__f17061_40.png" alt="Новость" class="news-image">
+                            <div class="news-content">
+                                <div class="news-date">8 ноября 2025 г.</div>
+                                <h3 class="news-title"><a href="/about/news/60929.html">Народов много — страна одна!</a></h3>
+                                <p class="news-excerpt">Сегодня Волгоградский строительный техникум стал площадкой для проведения Х Юбилейного Большого этнографического диктанта-2025</p>
+                            </div>
+                        </div>
+                        
+                        <div class="news-card">
+                            <img src="https://r1.nubex.ru/s138456-053/3e6e13ecd0_160x160__f17054_a0.png" alt="Новость" class="news-image">
+                            <div class="news-content">
+                                <div class="news-date">8 ноября 2025 г.</div>
+                                <h3 class="news-title"><a href="/about/news/60914.html">4 ноября студенты Волгоградского строительного техникума присоединились к празднованию Дня народного единства.</a></h3>
+                                <p class="news-excerpt">4 ноября студенты Волгоградского строительного техникума вместе с зам. директора по ПО Кострышовым В.Ю., зав. кафедрой Грянченко Т.В., педагогом-психологом Амралиевой К.И. и воспитателем Петросовой Э. Г. присоединились к празднованию Дня народного единства.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professionalitet Section -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h2 class="section-title">Федеральный проект "Профессионалитет"</h2>
+                    </div>
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <img src="https://r1.nubex.ru/s138456-053/55ebeb7a6a_160x160__f17074_2b.jpg" alt="Профессионалитет" class="news-image">
+                            <div class="news-content">
+                                <div class="news-date">11 ноября 2025 г.</div>
+                                <h3 class="news-title"><a href="/professionalitet/41934/60974.html">Профориентационный классный час для учащихся 9 классов</a></h3>
+                                <p class="news-excerpt">В рамках реализации Федерального проекта "Профессионалитет" сотрудники техникума провели профориентационный классный час для учащихся 9 классов МОУ «Средняя школа №92 Краснооктябрьского района Волгограда».</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar">
+                <!-- Quick Links -->
+                <div class="widget">
+                    <h3 class="widget-title"><i class="fas fa-link"></i> Быстрые ссылки</h3>
+                    <ul class="quick-links">
+                        <li class="quick-link">
+                            <a href="/sveden/">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Сведения об образовательной организации</span>
+                            </a>
+                        </li>
+                        <li class="quick-link">
+                            <a href="/professionalitet/">
+                                <i class="fas fa-cogs"></i>
+                                <span>Профессионалитет</span>
+                            </a>
+                        </li>
+                        <li class="quick-link">
+                            <a href="/biblioteka/">
+                                <i class="fas fa-book"></i>
+                                <span>Библиотека</span>
+                            </a>
+                        </li>
+                        <li class="quick-link">
+                            <a href="/uch_deyat/schedule/">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Расписание занятий</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="widget">
+                    <h3 class="widget-title"><i class="fas fa-map-marker-alt"></i> Контакты</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-title">Корпус 1 (Центральный район)</div>
+                                <div class="contact-value">Скосырева ул., д. 1, г. Волгоград, 400066</div>
+                                <div class="contact-value">8 (8442) 39-40-50</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-title">Корпус 2 (Тракторозаводский район)</div>
+                                <div class="contact-value">Рыкачева ул. 13, г. Волгоград, 400065</div>
+                                <div class="contact-value">8 (8442) 71-52-29</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Announcements -->
+                <div class="widget">
+                    <h3 class="widget-title"><i class="fas fa-bullhorn"></i> Объявления</h3>
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <div class="news-content">
+                                <div class="news-date">12 ноября 2025 г.</div>
+                                <h3 class="news-title"><a href="/about/obyvleniya/60988.html">Региональный конкурс проектов</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gosuslugi Widget -->
+                <div class="widget">
+                    <h3 class="widget-title"><i class="fas fa-question-circle"></i> Есть вопрос?</h3>
+                    <div style="background: linear-gradient(135deg, #38bafe 0%, #2d73bc 100%); padding: 20px; border-radius: var(--radius-md); color: white; text-align: center;">
+                        <h4 style="margin-bottom: 15px;">Решаем вместе</h4>
+                        <button style="background: white; color: #0d4cd3; border: none; padding: 12px 24px; border-radius: var(--radius-sm); font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                            Написать о проблеме
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>О техникуме</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about/">Основные сведения</a></li>
+                        <li><a href="/about/news/">Новости</a></li>
+                        <li><a href="/about/photo/">Фотогалерея</a></li>
+                        <li><a href="/about/anticorr/">Антикоррупционная деятельность</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Образование</h3>
+                    <ul class="footer-links">
+                        <li><a href="/uch_deyat/">Учебная деятельность</a></li>
+                        <li><a href="/abiturientam/">Абитуриенту</a></li>
+                        <li><a href="/studentu/">Студенту</a></li>
+                        <li><a href="/5238/">Методическая работа</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ресурсы</h3>
+                    <ul class="footer-links">
+                        <li><a href="/biblioteka/">Библиотека</a></li>
+                        <li><a href="/professionalitet/">Профессионалитет</a></li>
+                        <li><a href="/bezop/">Безопасность</a></li>
+                        <li><a href="/contact/">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li>Корпус 1: 8 (8442) 39-40-50</li>
+                        <li>Корпус 2: 8 (8442) 71-52-29</li>
+                        <li>Email: volbts@volganet.ru</li>
+                        <li>Волгоград, Россия</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 ГБПОУ "Волгоградский строительный техникум". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Responsive menu adjustment
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                document.querySelector('.nav-menu').style.display = 'flex';
+            } else {
+                document.querySelector('.nav-menu').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
